@@ -14,9 +14,13 @@ const gameboardStatus = [
 export default function GameBoard() {
   const [players, setPlayers] = useState(ourPlayers);
   const [gameBoardTracking, setGameBoardTracking] = useState(gameboardStatus);
-  const [turns, setTurns] = useState("X");
-  let [draw,setDraw] = useState(false);
 
+  //this is to change players turns
+  const [turns, setTurns] = useState("X");
+  
+  let draw = false;
+
+  // it is to calculate number of turns
   let [turnsDone,setTurnsDone] = useState(0);
 
 
@@ -42,7 +46,7 @@ export default function GameBoard() {
         firstBoxSymbol == secondBoxSymbol &&
         firstBoxSymbol == thirdBoxSymbol
       ) {
-        winner = firstBoxSymbol;
+        winner = players[firstBoxSymbol];
       }
     }
     return winner;
@@ -60,6 +64,19 @@ export default function GameBoard() {
         ...prevNames,
       };
     });
+  }
+
+  function restart(){
+    setGameBoardTracking(
+      [
+        [null,null,null],
+        [null,null,null],
+        [null,null,null]
+      ]
+    ),
+    setTurns('X');
+    setTurnsDone(0)
+    
   }
 
   function handleButtonClick(rowIndex, colIndex) {
@@ -82,8 +99,10 @@ export default function GameBoard() {
   
   
  let winner = deriveWinner();
+ console.log(turnsDone)
+
  if(turnsDone == 9 && !winner){
-    setDraw(true)
+   draw = true;
  }
 
   // if(isEditing){
@@ -112,7 +131,7 @@ export default function GameBoard() {
           onChangeName={changePlayerNames}
         />
       </ol>
-      {(winner || draw) && <GameOver winner={winner} />}
+      {(winner || draw) && <GameOver winner={winner} reset={restart} />}
       <ol id="game-board">
         {gameBoardTracking.map((array, rowIndex) => {
           return (
@@ -135,45 +154,7 @@ export default function GameBoard() {
           );
         })}
 
-        {/* <li>
-          <ol>
-            <li>
-              <button></button>
-            </li>
-            <li>
-              <button></button>
-            </li>
-            <li>
-              <button></button>
-            </li>
-          </ol>
-        </li>
-        <li>
-          <ol>
-            <li>
-              <button></button>
-            </li>
-            <li>
-              <button></button>
-            </li>
-            <li>
-              <button></button>
-            </li>
-          </ol>
-        </li>
-        <li>
-          <ol>
-            <li>
-              <button></button>
-            </li>
-            <li>
-              <button></button>
-            </li>
-            <li>
-              <button></button>
-            </li>
-          </ol>
-        </li> */}
+
       </ol>
     </div>
     </>

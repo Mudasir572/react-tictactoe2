@@ -2,6 +2,10 @@ import ticTacImg from "/game-logo.png";
 import GameBoard from "./components/GameBoard";
 
 function App() {
+
+
+
+  
   return (
     <>
       <header>
