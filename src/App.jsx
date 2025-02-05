@@ -11,10 +11,10 @@ function App() {
       <header>
         <img src={ticTacImg} alt="logo image" />
 
-        <h1>Tic Tac Toe</h1>
+        <h1>Tic Tac Toe Game</h1>
       </header>
       <GameBoard />
-      
+
     </>
   );
 }
